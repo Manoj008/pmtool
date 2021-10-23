@@ -25,18 +25,21 @@ public class Project {
 	private String projectName;
 	@NotBlank(message = "Project identifier is required")
 	@Size(min=3, max=5,message = "Please use 3 to 5 characters")
-	@Column(updatable = false,unique = true)
+	@Column(unique = true,updatable = false)
 	private String projectIdentifier;
 	@NotBlank(message = "Project description is required")
 	private String description;
-	@JsonFormat(pattern = "dd-mm-yyyy")
+	@JsonFormat(pattern = "dd-MM-yyyy")
 	private Date startDate;
-	@JsonFormat(pattern = "dd-mm-yyyy")
+	@JsonFormat(pattern = "dd-MM-yyyy")
 	private Date endDate;
 	
-	@JsonFormat(pattern = "dd-mm-yyyy, hh:MM")
+	@Column(nullable = false)
+	private String projectStatus;
+	
+	@JsonFormat(pattern = "dd-MM-yyyy, hh:mm")
 	private Date createdAt;
-	@JsonFormat(pattern = "dd-mm-yyyy, hh:MM")
+	@JsonFormat(pattern = "dd-MM-yyyy, hh:mm")
 	private Date updatedAt;
 	
 	
@@ -139,6 +142,18 @@ public class Project {
 
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+
+
+
+	public String getProjectStatus() {
+		return projectStatus;
+	}
+
+
+
+	public void setProjectStatus(String projectStatus) {
+		this.projectStatus = projectStatus;
 	}
 
 
