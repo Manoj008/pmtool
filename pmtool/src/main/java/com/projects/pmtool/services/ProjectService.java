@@ -5,8 +5,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.projects.pmtool.domain.Backlog;
 import com.projects.pmtool.domain.Project;
 import com.projects.pmtool.exceptions.ProjectIdException;
+import com.projects.pmtool.repositories.BacklogRepository;
 import com.projects.pmtool.repositories.ProjectRepository;
 
 @Service
@@ -14,11 +16,25 @@ public class ProjectService {
 
 	@Autowired
 	ProjectRepository projectRepo;
+	@Autowired
+	BacklogRepository backlogRepo;
 
 	public Project saveOrUppdateProject(Project project) {
 
 		try {
 			project.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
+			
+			if(project.getId()==null) {
+				Backlog backlog = new Backlog();
+				project.setBacklog(backlog);
+				backlog.setProject(project);
+				backlog.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
+			}
+			
+			if(project.getId()!=null) {
+				project.setBacklog(backlogRepo.findByProjectIdentifier(project.getProjectIdentifier().toUpperCase()));
+			}
+			
 			if(project.getProjectStatus()==null) {
 				project.setProjectStatus("Planned");
 			}
