@@ -27,7 +27,7 @@ class Dashboard extends Component {
                             <br />
                             <hr />{
                                 projects.filter(project => project.projectStatus !== 'Dropped').map(currProject => (
-                                    <ProjectItem project={currProject} />
+                                    <ProjectItem project={currProject} key={currProject.id} />
                                 ))
                             }
                         </div>
