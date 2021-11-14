@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import classnames from "classnames";
 import { addProjectTask } from "../../../actions/backlogActions";
 import PropTypes from "prop-types";
+import store from "../../../Store";
 
 class AddProjectTask extends Component {
     constructor(props) {
